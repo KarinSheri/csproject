@@ -1,0 +1,12 @@
+body {
+  background-color: linen;
+}
+
+h1 {
+  font-size: 40px;
+  border: 1px solid black;
+  background-color: lightblue;
+  text-align: center;
+  text-transform: uppercase;
+  color: #0000FF;
+} 

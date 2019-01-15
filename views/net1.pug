@@ -1,0 +1,21 @@
+doctype html
+html(lang='en')
+  head
+    title= title
+    meta(charset='utf-8')
+    script(src="/javascripts/vis.js")
+    script(src="/javascripts/clickme.js")
+    script(src="/javascripts/net1-prop.js")
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    p(id="nodesToChose" class="nodesToChose")
+    p You choose a node by a longheld click as well as a control-click will add to the selection.
+    p You can cancel you choice by another longheld click.
+    p(id="remainNodes" class="remainNodes")
+    div(id="mynetwork")
+    form(method="post" action="/experiment/net1/chosen_nodes")
+        input(type="hidden" id="node1" name="node1")
+        input(type="hidden" id="node2" name="node2")
+        input(type="hidden" id="node3" name="node3")
+        input(type="submit" id="nextButton" value="Next")
+    pre(id="eventSpan")

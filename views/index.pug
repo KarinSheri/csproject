@@ -1,0 +1,25 @@
+doctype html
+html(lang='en')
+  head
+    title= title
+    meta(charset='utf-8')
+    link(rel='stylesheet', href='/stylesheets/form.css')
+  body
+    h1 Please enter your information:
+    div
+        form(method="post" action="/addname")
+            ul(class="form-style-1")
+                li
+                label Age:
+                input(type="number" name="age" placeholder="Enter your age..." required)
+                li
+                label Gender:
+                select(class='gender' name='gender')
+                    outgroup(label="Gender")
+                        option(name= "Male" value="Male") Male
+                        option(name= "Female" value="Female") Female
+                li        
+                label Department:
+                input(type="text" name="department" placeholder="Enter your department..." required)
+                li
+                input(type="submit" value="Next")

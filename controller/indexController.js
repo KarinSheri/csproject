@@ -1,0 +1,1 @@
+var Net1 = require('../models/index');
