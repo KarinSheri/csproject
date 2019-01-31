@@ -58,12 +58,12 @@ interaction:{
   hover: true,
   hoverConnectedEdges: true,
   keyboard: {
-    enabled: false,
+    enabled: true,
     speed: {x: 10, y: 10, zoom: 0.02},
     bindToWindow: true
   },
   multiselect: true,
-  navigationButtons: false,
+  navigationButtons: true,
   selectable: true,
   selectConnectedEdges: true,
   tooltipDelay: 300,
@@ -100,6 +100,12 @@ edges:{
 }
 }
 var network = new vis.Network(container, data, options);
+
+      /*var options = {offset: {x:0,y:0},
+        duration: 1000,
+        easingFunction: "easeInOutQuad"
+      };
+      network.fit({animation:options});*/
 var sumOfEdges;
 
 network.on("selectNode", function (params) {
@@ -120,7 +126,8 @@ network.on("selectNode", function (params) {
   else if (numReaminNodes < 0) {
     var numDeselectNodes = -numReaminNodes
     var strDeselectNodes = numDeselectNodes.toString();
-    var txtRemainedNodes = "עליך להסיר מבחירתך <b>" + strDeselectNodes + "</b> קודקודים."
+    var txtRemainedNodes = "נדרשת לבחור " + strNodes + " קודקודים בלבד. אנא הסר מבחירתך <b>" + strDeselectNodes + "</b> קודקודים."
+
     remainNodesPar.innerHTML = txtRemainedNodes
     nextButton.disabled = true;
   }
