@@ -5,9 +5,12 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var StudentModel = new Schema({
-  age               : {type: Number, min: 16, max: 100, required: true},
+  age               : {type: Number, required: true},
   gender            : {type: String, enum: ['Male', 'Female'], required: true},
-  department        : {type: String, max: 100, required: true}
+  email             : {type: String, required: true},
+  education         : {type: String, enum: ['Less than high school',"High school","Bachelor","Master)",'Doctorate'], required: true},
+  industry          : {type: String, required: true}
+  
 });
 
 //Export function to create "SomeModel" model class

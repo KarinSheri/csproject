@@ -18,8 +18,20 @@ html(lang='en')
                     outgroup(label="Gender")
                         option(name= "Male" value="Male") Male
                         option(name= "Female" value="Female") Female
+                li
+                label Email:
+                input(type="email" name="email" required)
+                li
+                label Education:
+                select(class='education' name='education')
+                    outgroup(label="Education")
+                        option(name= "education" value="Less than high school") Less than high school degree
+                        option(name= "education" value="High school") High school graduate
+                        option(name= "education" value="Bachelor") Bachelor's degree (e.g BA, BS)
+                        option(name= "education" value="Master") Master's degree (e.g MA, MS, MEd)   
+                        option(name= "education" value="Doctorate") Doctorate degree (e.g PhD, EdD)
                 li        
-                label Department:
-                input(type="text" name="department" placeholder="Enter your department..." required)
+                label Industry:
+                input(type="text" name="industry" placeholder="Describe the industry you primarily work in..." required)
                 li
                 input(type="submit" value="Next")
