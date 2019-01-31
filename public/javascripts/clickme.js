@@ -119,7 +119,7 @@ network.on("selectNode", function (params) {
   var strRemainNodes = numReaminNodes.toString();
   if (numReaminNodes === 0) {
     // can select a next button
-    var txtRemainedNodes = "מספר הקודקודים שנשאר לבחור: <b>" + strRemainNodes + "</b>"
+    var txtRemainedNodes = "<b>מעולה! סימנת מספיק קודקודים. אם אתה חושב שזו הבחירה הטובה ביותר אתה יכול להתקדם למשימה הבאה.</b>"
     remainNodesPar.innerHTML = txtRemainedNodes
     nextButton.disabled = false;
   }
@@ -168,11 +168,31 @@ network.on("deselectNode", function (params) {
   var selectedNodes = network.getSelectedNodes()
   network.selectNodes(selectedNodes)
   
-  if (numReaminNodes === 0) {
+  /*if (numReaminNodes === 0) {
     nextButton.disabled = false;
   }
   else {
     nextButton.disabled = true
+  }*/
+  
+  if (numReaminNodes === 0) {
+    // can select a next button
+    var txtRemainedNodes = "<b>מעולה! סימנת מספיק קודקודים. אם אתה חושב שזו הבחירה הטובה ביותר אתה יכול להתקדם למשימה הבאה.</b>"
+    remainNodesPar.innerHTML = txtRemainedNodes
+    nextButton.disabled = false;
+  }
+  else if (numReaminNodes < 0) {
+    var numDeselectNodes = -numReaminNodes
+    var strDeselectNodes = numDeselectNodes.toString();
+    var txtRemainedNodes = "נדרשת לבחור " + strNodes + " קודקודים בלבד. אנא הסר מבחירתך <b>" + strDeselectNodes + "</b> קודקודים."
+
+    remainNodesPar.innerHTML = txtRemainedNodes
+    nextButton.disabled = true;
+  }
+  else {
+    var txtRemainedNodes = "מספר הקודקודים שנשאר לבחור: <b>" + strRemainNodes + "</b>"
+    remainNodesPar.innerHTML = txtRemainedNodes
+    nextButton.disabled = true;
   }
   
   selectedEdges = network.getSelectedEdges()
