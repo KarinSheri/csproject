@@ -78,6 +78,13 @@ nodes:{
         hover: '#C0C0C0'
     }
 },
+//physics: {
+//  enabled: false,     // Stops node movement during display
+//  stabilization: {    // Determines an initial layout; enabled by default
+//   enabled: true,
+//    iterations: 1000
+//  }
+//},
 edges:{
     labelHighlightBold: false,
     width: 2,
@@ -88,12 +95,14 @@ edges:{
         hover: 'Black'
     },
     font: {
-        background: 'White',
+        //background: 'White',
+        strokeWidth: 2,
+        //align: 'middle',
         color: 'Blue',
-        size: 16,
+        size: 20,
         bold: {
         color: 'Blue',
-        size: 16, // px
+        size: 20, // px
         mod: 'bold'
       },
     }
