@@ -1,5 +1,5 @@
 var netNum = 4
-var numNodesToChoose=7
+var numNodesToChoose=11
 
 var nodes = new vis.DataSet([
   {id: 1},
@@ -91,7 +91,7 @@ var edges = new vis.DataSet([
 ]);*/
 
 // create an array with edges
-var edges = new vis.DataSet([
+/*var edges = new vis.DataSet([
   {from: 1, to: 7, label: '1'},
   {from: 1, to: 8, label: '2'},
   {from: 1, to: 9, label: '3'},
@@ -118,7 +118,7 @@ var edges = new vis.DataSet([
   {from: 5, to: 14, label: '8'},
   {from: 6, to: 7, label: '1'},
   {from: 6, to: 11, label: '5'},
-  {from: 6, to: 14, label: '8'},
+  {from: 6, to: 14, label: '9'}, //8
   {from: 15, to: 21, label: '1'},
   {from: 15, to: 22, label: '2'},
   {from: 15, to: 23, label: '3'},
@@ -145,5 +145,64 @@ var edges = new vis.DataSet([
   {from: 19, to: 28, label: '8'},
   {from: 20, to: 21, label: '1'},
   {from: 20, to: 25, label: '5'},
-  {from: 20, to: 28, label: '8'}
+  {from: 20, to: 28, label: '9'} //8
+]);*/
+
+
+
+var edges = new vis.DataSet([
+  {from: 1, to: 7, label: '1'},
+  {from: 1, to: 8, label: '2'},
+  {from: 1, to: 9, label: '3'},
+  {from: 1, to: 10, label: '4'},
+  {from: 1, to: 12, label: '5'},
+  {from: 2, to: 7, label: '1'},
+  {from: 2, to: 8, label: '2'},
+  {from: 2, to: 9, label: '3'},
+  {from: 2, to: 10, label: '4'},
+  {from: 2, to: 12, label: '5'},
+  {from: 3, to: 7, label: '1'},
+  {from: 3, to: 8, label: '2'},
+  {from: 3, to: 9, label: '3'},
+  {from: 3, to: 10, label: '4'},
+  {from: 3, to: 13, label: '5'},
+  {from: 4, to: 7, label: '1'},
+  {from: 4, to: 8, label: '2'},
+  {from: 4, to: 9, label: '3'},
+  {from: 4, to: 11, label: '4'},
+  {from: 4, to: 13, label: '5'},
+  {from: 5, to: 7, label: '1'},
+  {from: 5, to: 8, label: '2'},
+  {from: 5, to: 11, label: '4'},
+  {from: 5, to: 14, label: '7'},
+  {from: 6, to: 7, label: '1'},
+  {from: 6, to: 11, label: '4'},
+  {from: 6, to: 14, label: '9'}, //8
+  {from: 15, to: 21, label: '1'},
+  {from: 15, to: 22, label: '2'},
+  {from: 15, to: 23, label: '3'},
+  {from: 15, to: 24, label: '4'},
+  {from: 15, to: 26, label: '5'},
+  {from: 16, to: 21, label: '1'},
+  {from: 16, to: 22, label: '2'},
+  {from: 16, to: 23, label: '3'},
+  {from: 16, to: 24, label: '4'},
+  {from: 16, to: 26, label: '5'},
+  {from: 17, to: 21, label: '1'},
+  {from: 17, to: 22, label: '2'},
+  {from: 17, to: 23, label: '3'},
+  {from: 17, to: 24, label: '4'},
+  {from: 17, to: 27, label: '5'},
+  {from: 18, to: 21, label: '1'},
+  {from: 18, to: 22, label: '2'},
+  {from: 18, to: 23, label: '3'},
+  {from: 18, to: 25, label: '4'},
+  {from: 18, to: 27, label: '5'},
+  {from: 19, to: 21, label: '1'},
+  {from: 19, to: 22, label: '2'},
+  {from: 19, to: 25, label: '4'},
+  {from: 19, to: 28, label: '7'},
+  {from: 20, to: 21, label: '1'},
+  {from: 20, to: 25, label: '4'},
+  {from: 20, to: 28, label: '9'},
 ]);

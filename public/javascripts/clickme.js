@@ -29,7 +29,7 @@ function myFunction() {
         document.getElementById('node4').value = chosenNodes[3];
         document.getElementById('node5').value = chosenNodes[4];
         document.getElementById('node6').value = chosenNodes[5];
-    } else if (netNum === 3 || netNum === 4) {
+    } else if (netNum === 3) {
         document.getElementById('node1').value = chosenNodes[0];
         document.getElementById('node2').value = chosenNodes[1];
         document.getElementById('node3').value = chosenNodes[2];
@@ -37,6 +37,19 @@ function myFunction() {
         document.getElementById('node5').value = chosenNodes[4];
         document.getElementById('node6').value = chosenNodes[5];   
         document.getElementById('node7').value = chosenNodes[6];  
+        document.getElementById('node8').value = chosenNodes[7];  
+    } else if (netNum === 4) {
+        document.getElementById('node1').value = chosenNodes[0];
+        document.getElementById('node2').value = chosenNodes[1];
+        document.getElementById('node3').value = chosenNodes[2];
+        document.getElementById('node4').value = chosenNodes[3];
+        document.getElementById('node5').value = chosenNodes[4];
+        document.getElementById('node6').value = chosenNodes[5];   
+        document.getElementById('node7').value = chosenNodes[6];  
+        document.getElementById('node8').value = chosenNodes[7];
+        document.getElementById('node9').value = chosenNodes[8];
+        document.getElementById('node10').value = chosenNodes[9];   
+        document.getElementById('node11').value = chosenNodes[10];  
     }
 
 }
@@ -78,13 +91,13 @@ nodes:{
         hover: '#C0C0C0'
     }
 },
-//physics: {
-//  enabled: false,     // Stops node movement during display
-//  stabilization: {    // Determines an initial layout; enabled by default
-//   enabled: true,
-//    iterations: 1000
-//  }
-//},
+/*physics: {
+  enabled: false,     // Stops node movement during display
+  stabilization: {    // Determines an initial layout; enabled by default
+   enabled: true,
+    iterations: 1000
+  }
+},*/
 edges:{
     labelHighlightBold: false,
     width: 2,

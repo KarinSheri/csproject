@@ -104,7 +104,8 @@ router.post('/experiment/net3/chosen_nodes/', function(req, res, next) {
     node_4:req.body.node4,
     node_5:req.body.node5,
     node_6:req.body.node6,
-    node_7:req.body.node7});
+    node_7:req.body.node7,
+    node_8:req.body.node8});
     net3_instance.save(function (err) {if (err) return handleError(err);});
     console.log(req.body)
    console.log("reach here3");
@@ -121,7 +122,11 @@ router.post('/experiment/net4/chosen_nodes/', function(req, res, next) {
     node_4:req.body.node4,
     node_5:req.body.node5,
     node_6:req.body.node6,
-    node_7:req.body.node7});
+    node_7:req.body.node7,
+    node_8:req.body.node8, 
+    node_9:req.body.node9,
+    node_10:req.body.node10,
+    node_11:req.body.node11});
     net4_instance.save(function (err) {if (err) return handleError(err);});
     console.log(req.body)
    console.log("reach here4");

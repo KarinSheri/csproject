@@ -1,5 +1,5 @@
 var netNum = 3
-var numNodesToChoose=7
+var numNodesToChoose=8
 
 var nodes = new vis.DataSet([
   {id: 1},
