@@ -5,11 +5,11 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+/*var usersRouter = require('./routes/users');
 var net1Router  = require('./routes/net1');
 var net2Router  = require('./routes/net2');
 var net3Router  = require('./routes/net3');
-var thankYouRouter  = require('./routes/thankyou');
+var thankYouRouter  = require('./routes/thankyou');*/
 
 var app = express();
 
@@ -28,10 +28,10 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 //Create a SomeModel model just by requiring the module
-var StudentModel = require('./models/students')
+//var StudentModel = require('./models/students')
 
 // Create an instance of model SomeModel
-var student_instance = new StudentModel({ age: 25, gender:'Female', department:'CS' });
+//var student_instance = new StudentModel({ age: 25, gender:'Female', department:'CS' });
 
 // Save the new model instance, passing a callback
 /*student_instance.save(function (err) {
@@ -40,7 +40,7 @@ var student_instance = new StudentModel({ age: 25, gender:'Female', department:'
 });*/
 
 // Access model field values using dot notation
-console.log(student_instance.age); //should log 'also_awesome'
+//console.log(student_instance.age); //should log 'also_awesome'
 
 // Change record by modifying the fields, then calling save().
 // awesome_instance.name="New cool name";
@@ -59,11 +59,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+/*app.use('/users', usersRouter);
 app.use('/net1', net1Router);
 app.use('/net2', net2Router);
 app.use('/net3', net3Router);
-app.use('/thankyou', thankYouRouter);
+app.use('/thankyou', thankYouRouter);*/
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

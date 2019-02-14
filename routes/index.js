@@ -20,6 +20,8 @@ var Net1Model = require('../models/network_1');
 var Net2Model = require('../models/network_2');
 var Net3Model = require('../models/network_3');
 var Net4Model = require('../models/network_4');
+var Net5Model = require('../models/network_5');
+var Net6Model = require('../models/network_6');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -34,8 +36,8 @@ router.post('/addname', function(req, res, next){
     var student_instance = new StudentModel(req.body);
     student_id = student_instance._id
     student_instance.save(function (err) {if (err) return handleError(err);});
-    res.redirect("/experiment/tutorial/")
-     
+    console.log(req.body)
+    res.redirect("/experiment/tutorial/")   
 })
 
 /* GET home page. */
@@ -58,6 +60,14 @@ router.get('/experiment/net3/', function(req, res, next) {
 
 router.get('/experiment/net4/', function(req, res, next) {
   res.render('net4');
+});
+
+router.get('/experiment/net5/', function(req, res, next) {
+  res.render('net5');
+});
+
+router.get('/experiment/net6/', function(req, res, next) {
+  res.render('net6');
 });
 
 router.get('/experiment/thankyou/', function(req, res, next){
@@ -130,6 +140,49 @@ router.post('/experiment/net4/chosen_nodes/', function(req, res, next) {
     net4_instance.save(function (err) {if (err) return handleError(err);});
     console.log(req.body)
    console.log("reach here4");
+   res.redirect('/experiment/net5'); 
+});
+
+router.post('/experiment/net5/chosen_nodes/', function(req, res, next) {
+    var net5_instance = new Net5Model({ studentID: student_id, 
+    time_sec:req.body.time,
+    weight:req.body.weight,
+    node_1:req.body.node1, 
+    node_2:req.body.node2,
+    node_3:req.body.node3,
+    node_4:req.body.node4,
+    node_5:req.body.node5,
+    node_6:req.body.node6,
+    node_7:req.body.node7,
+    node_8:req.body.node8, 
+    node_9:req.body.node9,
+    node_10:req.body.node10});
+    net5_instance.save(function (err) {if (err) return handleError(err);});
+    console.log(req.body)
+   console.log("reach here5");
+   res.redirect('/experiment/net6'); 
+});
+
+router.post('/experiment/net6/chosen_nodes/', function(req, res, next) {
+    var net6_instance = new Net6Model({ studentID: student_id, 
+    time_sec:req.body.time,
+    weight:req.body.weight,
+    node_1:req.body.node1, 
+    node_2:req.body.node2,
+    node_3:req.body.node3,
+    node_4:req.body.node4,
+    node_5:req.body.node5,
+    node_6:req.body.node6,
+    node_7:req.body.node7,
+    node_8:req.body.node8, 
+    node_9:req.body.node9,
+    node_10:req.body.node10,
+    node_11:req.body.node11, 
+    node_12:req.body.node12,
+    node_13:req.body.node13});
+    net6_instance.save(function (err) {if (err) return handleError(err);});
+    console.log(req.body)
+   console.log("reach here6");
    res.redirect('/experiment/thankyou'); 
 });
 

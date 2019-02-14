@@ -50,7 +50,32 @@ function myFunction() {
         document.getElementById('node9').value = chosenNodes[8];
         document.getElementById('node10').value = chosenNodes[9];   
         document.getElementById('node11').value = chosenNodes[10];  
-    }
+    } else if (netNum === 5) {
+        document.getElementById('node1').value = chosenNodes[0];
+        document.getElementById('node2').value = chosenNodes[1];
+        document.getElementById('node3').value = chosenNodes[2];
+        document.getElementById('node4').value = chosenNodes[3];
+        document.getElementById('node5').value = chosenNodes[4];
+        document.getElementById('node6').value = chosenNodes[5];   
+        document.getElementById('node7').value = chosenNodes[6];  
+        document.getElementById('node8').value = chosenNodes[7];
+        document.getElementById('node9').value = chosenNodes[8];
+        document.getElementById('node10').value = chosenNodes[9];
+    } else if (netNum === 6) {
+      document.getElementById('node1').value = chosenNodes[0];
+      document.getElementById('node2').value = chosenNodes[1];
+      document.getElementById('node3').value = chosenNodes[2];
+      document.getElementById('node4').value = chosenNodes[3];
+      document.getElementById('node5').value = chosenNodes[4];
+      document.getElementById('node6').value = chosenNodes[5];   
+      document.getElementById('node7').value = chosenNodes[6];  
+      document.getElementById('node8').value = chosenNodes[7];
+      document.getElementById('node9').value = chosenNodes[8];
+      document.getElementById('node10').value = chosenNodes[9];
+      document.getElementById('node11').value = chosenNodes[10];
+      document.getElementById('node12').value = chosenNodes[11];
+      document.getElementById('node13').value = chosenNodes[12];
+  }
 
 }
 
