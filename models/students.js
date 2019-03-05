@@ -9,9 +9,9 @@ var StudentModel = new Schema({
   gender            : {type: String, enum: ['Male', 'Female'], required: true},
   email             : {type: String, required: true},
   education         : {type: String, enum: ['Less than high school',"High school","Bachelor","Master)",'Doctorate'], required: true},
-  industry          : {type: String, required: true}
-  
-});
+  industry          : {type: String, required: true},
+  date            : {type: Date, default: Date.now}
+  });
 
 //Export function to create "SomeModel" model class
 module.exports = mongoose.model('Students', StudentModel );
