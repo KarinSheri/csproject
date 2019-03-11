@@ -13,7 +13,8 @@ var Network_1_Model = new Schema({
   node_3            : {type: Number, required: true},
   node_4            : {type: Number, required: true},
   node_5            : {type: Number, required: true},
-  node_6            : {type: Number, required: true}
+  node_6            : {type: Number, required: true},
+  date              : {type: Date, default: Date.now}
 });
 
 //Export function to create "SomeModel" model class
