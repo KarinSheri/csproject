@@ -38,7 +38,17 @@ html(lang='en')
     
     p(dir="rtl") בהצלחה!
     
-    button(class="button" onclick="window.location.href='/experiment/net1'") Next
+    form(method="post" action="/experiment/explanation/randfirst")
+      input(type="hidden" id="ip" name="ip")
+      input(type="submit" class="button" id="nextButton" value="Next")
+    
+    script.
+      function getIP(json) {
+        document.getElementById("ip").value = json.ip}
+    script(type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP")   
+    
+    
+    // button(class="button" onclick="window.location.href='/experiment/net1'") Next
 
     
 

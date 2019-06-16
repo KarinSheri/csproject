@@ -16,6 +16,7 @@ var Network_3_Model = new Schema({
   node_6            : {type: Number, required: true},
   node_7            : {type: Number, required: true},
   node_8            : {type: Number, required: true},
+  nodes_order       : {type: Array, required: true},
   date              : {type: Date, default: Date.now}
 });
 

@@ -22,6 +22,8 @@ function myFunction() {
     var diffSec = Math.abs(end - start)/1000.0;
     document.getElementById('time').value = diffSec;
     document.getElementById('weight').value = sumOfEdges;
+    document.getElementById('orderednodes').value = nodes_ordered;
+
     if (netNum === 1 || netNum === 2) {
         document.getElementById('node1').value = chosenNodes[0];
         document.getElementById('node2').value = chosenNodes[1];
@@ -76,6 +78,14 @@ function myFunction() {
       document.getElementById('node12').value = chosenNodes[11];
       document.getElementById('node13').value = chosenNodes[12];
   }
+
+}
+
+function arrayRemove(arr, value) {
+
+  return arr.filter(function(ele){
+      return ele != value;
+  });
 
 }
 
@@ -155,12 +165,18 @@ var network = new vis.Network(container, data, options);
       network.fit({animation:options});*/
 var sumOfEdges;
 
+var nodes_ordered = [];
+
 network.on("selectNode", function (params) {
   chosenNodes = params.nodes
   params.event = "[original event]";
+  //console.log(params);
+  chosen_node = this.getNodeAt(params.pointer.DOM)
+  nodes_ordered.push(chosen_node)
+  console.log('Nodes Selected: ' + nodes_ordered);
   //document.getElementById('eventSpan').innerHTML = '<h2>Select Node event:</h2>' + JSON.stringify(params, null, 4);
   //document.getElementById('eventSpan').innerHTML = '<h2>הקודקודים שנבחרו: ' + chosenNodes.toString() +'</h2>';
-  console.log('selectNode event, getNodeAt returns: ' + this.getNodeAt(params.pointer.DOM));
+  console.log('selectNode event, getNodeAt returns: ' + chosen_node);
   numSelected = params.nodes.length
   numReaminNodes = numNodesToChoose - numSelected
   var strRemainNodes = numReaminNodes.toString();
@@ -202,9 +218,18 @@ network.on("selectNode", function (params) {
 network.on("deselectNode", function (params) {
   chosenNodes = params.nodes
   params.event = "[original event]";
+
+  if (params.nodes.length == 0) {
+    nodes_ordered = []
+  } else {
+  chosen_node = this.getNodeAt(params.pointer.DOM)
+  nodes_ordered = arrayRemove(nodes_ordered, chosen_node);
+  }
+  console.log('Nodes Selected: ' + nodes_ordered);
+
   //document.getElementById('eventSpan').innerHTML = '<h2>deselectNode Node event:</h2>' + JSON.stringify(params, null, 4);
   //document.getElementById('eventSpan').innerHTML = '<h2>הקודקודים שנבחרו: ' + chosenNodes.toString() +'</h2>';
-  console.log('deselectNode event, getNodeAt returns: ' + this.getNodeAt(params.pointer.DOM));
+  console.log('deselectNode event, getNodeAt returns: ' + chosen_node);
   numUnselected = params.previousSelection.nodes.length - params.nodes.length
   numReaminNodes = numReaminNodes + numUnselected
   var strRemainNodes = numReaminNodes.toString();
