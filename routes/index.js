@@ -26,6 +26,7 @@ var Net4Model = require('../models/network_4');
 var Net5Model = require('../models/network_5');
 var Net6Model = require('../models/network_6');
 var UsersModel = require('../models/users');
+var MethodsModel = require('../models/methods');
 
 /*MongoClient.connect(url, function(err, db) {
   if (err) throw err;
@@ -106,6 +107,11 @@ router.get('/experiment/net6/user/:userId', function(req, res, next) {
   res.render('net6', { studentId: req.params.userId });
 });
 
+router.get('/experiment/method/user/:userId', function(req, res, next) {
+  console.log("***method req params " , req.params.userId);
+  res.render('method', { studentId: req.params.userId });
+});
+
 router.get('/experiment/thankyou/', function(req, res, next){
    res.render('thankyou'); 
 });
@@ -174,7 +180,8 @@ router.post('/experiment/net1/chosen_nodes/', function(req, res, next) {
       var left_networks = resp[0]["left_networks"];
       console.log("query response left networks #1: " + String(left_networks));
       if (left_networks === undefined || left_networks.length == 0) {
-        redirect_to = '/experiment/thankyou'
+        //redirect_to = '/experiment/thankyou'
+        redirect_to = '/experiment/method/user/' + String(student_id)
       } else {
         var random_index = Math.floor(Math.random()*left_networks.length)
         var random_net = left_networks[random_index];
@@ -197,6 +204,7 @@ router.post('/experiment/net1/chosen_nodes/', function(req, res, next) {
   });
    
 });
+
 router.post('/experiment/net2/chosen_nodes/', function(req, res, next) {
   var student_id = req.body.student_id
   console.log("***student id net2: " + student_id);
@@ -226,7 +234,8 @@ router.post('/experiment/net2/chosen_nodes/', function(req, res, next) {
       var left_networks = resp[0]["left_networks"];
       console.log("query response left networks #2: " + String(left_networks));
       if (left_networks === undefined || left_networks.length == 0) {
-        redirect_to = '/experiment/thankyou'
+        //redirect_to = '/experiment/thankyou'
+        redirect_to = '/experiment/method/user/' + String(student_id)
       } else {
         var random_index = Math.floor(Math.random()*left_networks.length)
         var random_net = left_networks[random_index];
@@ -282,7 +291,8 @@ router.post('/experiment/net3/chosen_nodes/', function(req, res, next) {
       var left_networks = resp[0]["left_networks"];
       console.log("query response left networks #3: " + String(left_networks));
       if (left_networks === undefined || left_networks.length == 0) {
-        redirect_to = '/experiment/thankyou'
+        //redirect_to = '/experiment/thankyou'
+        redirect_to = '/experiment/method/user/' + String(student_id)
       } else {
         var random_index = Math.floor(Math.random()*left_networks.length)
         var random_net = left_networks[random_index];
@@ -339,7 +349,8 @@ router.post('/experiment/net4/chosen_nodes/', function(req, res, next) {
       var left_networks = resp[0]["left_networks"];
         console.log("query response left networks #4: " + String(left_networks));
         if (left_networks === undefined || left_networks.length == 0) {
-          redirect_to = '/experiment/thankyou'
+          //redirect_to = '/experiment/thankyou'
+          redirect_to = '/experiment/method/user/' + String(student_id)
         } else {
           var random_index = Math.floor(Math.random()*left_networks.length)
           var random_net = left_networks[random_index];
@@ -395,7 +406,8 @@ router.post('/experiment/net5/chosen_nodes/', function(req, res, next) {
       var left_networks = resp[0]["left_networks"];
         console.log("query response left networks #5: " + String(left_networks));
         if (left_networks === undefined || left_networks.length == 0) {
-          redirect_to = '/experiment/thankyou'
+          //redirect_to = '/experiment/thankyou'
+          redirect_to = '/experiment/method/user/' + String(student_id)
         } else {
           var random_index = Math.floor(Math.random()*left_networks.length)
           var random_net = left_networks[random_index];
@@ -454,7 +466,8 @@ router.post('/experiment/net6/chosen_nodes/', function(req, res, next) {
       var left_networks = resp[0]["left_networks"];
         console.log("query response left networks #6: " + String(left_networks));
         if (left_networks === undefined || left_networks.length == 0) {
-          redirect_to = '/experiment/thankyou'
+          //redirect_to = '/experiment/thankyou'
+          redirect_to = '/experiment/method/user/' + String(student_id)
         } else {
           var random_index = Math.floor(Math.random()*left_networks.length)
           var random_net = left_networks[random_index];
@@ -476,5 +489,26 @@ router.post('/experiment/net6/chosen_nodes/', function(req, res, next) {
       });
     });
 });
+
+router.post('/experiment/method/add_method', function(req, res, next) {
+  var student_id = req.body.student_id
+  console.log("***student id method: " + student_id);
+  //var o_st_id = new ObjectId(student_id);
+
+  MongoClient.connect(url, function(err, dbb) {
+    if (err) throw err;
+
+    var method_instance = new MethodsModel({ 
+      studentID: student_id, 
+      method:req.body.method});
+      method_instance.save(function (err) {if (err) return handleError(err);});
+    console.log(req.body)
+
+    redirect_to = '/experiment/thankyou'
+    console.log("reach method page"); 
+    res.redirect(redirect_to);
+
+    });
+  });
 
 module.exports = router;
