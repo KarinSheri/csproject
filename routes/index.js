@@ -3,6 +3,7 @@ var router = express.Router();
 //Import the mongoose module
 var mongoose = require('mongoose');
 var MongoClient = require('mongodb').MongoClient;
+var ObjectId = require('mongodb').ObjectId; 
 var url = 'mongodb+srv://csproject:csproject@coalitionformation-weuvq.azure.mongodb.net/CoalitionFormation?retryWrites=true';
 
 //Set up default mongoose connection
@@ -13,7 +14,7 @@ mongoose.Promise = global.Promise;
 //Get the default connection
 var db = mongoose.connection;
 
-var student_id;
+//var student_id;
 
 //Bind connection to error event (to get notification of connection errors)
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
@@ -42,6 +43,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/addname', function(req, res, next){
+    var student_id;
     // Create an instance of model SomeModel
     ip_v = req.body.ip
     age_v = req.body.age
@@ -49,8 +51,6 @@ router.post('/addname', function(req, res, next){
     email_v = req.body.email
     edu_v = req.body.education
     indu_v = req.body.industry
-    console.log("ip: " + ip_v)
-    console.log(req.body)
 
     //var student_instance = new StudentModel(req.body);
     var student_instance = new StudentModel({age:age_v, gender:gender_v, email:email_v, education:edu_v, industry:indu_v});
@@ -60,37 +60,50 @@ router.post('/addname', function(req, res, next){
     var user_instance = new UsersModel({ip:ip_v, studentID:student_id});
     user_instance.save(function (err) {if (err) return handleError(err);});
 
-    res.redirect("/experiment/tutorial/")   
+    console.log("***student id: " + student_id)
+    console.log("ip: " + ip_v)
+    console.log(req.body)
+
+    path_id = "/experiment/tutorial/user/" + String(student_id)
+    console.log("First Path to tutorial:" + path_id);
+    res.redirect(path_id)   
 })
 
 /* GET home page. */
-router.get('/experiment/tutorial/', function(req, res, next) {
-  res.render('explaination');
+router.get('/experiment/tutorial/user/:userId', function(req, res, next) {
+  console.log("***Tutorial req params " , req.params.userId);
+  res.render('explaination', { studentId: req.params.userId });
 });
 
 /* GET home page. */
-router.get('/experiment/net1/', function(req, res, next) {
-  res.render('net1');
+router.get('/experiment/net1/user/:userId', function(req, res, next) {
+  console.log("***net1 req params " , req.params.userId);
+  res.render('net1', { studentId: req.params.userId });
 });
 
-router.get('/experiment/net2/', function(req, res, next) {
-  res.render('net2');
+router.get('/experiment/net2/user/:userId', function(req, res, next) {
+  console.log("***net2 req params " , req.params.userId);
+  res.render('net2', { studentId: req.params.userId });
 });
 
-router.get('/experiment/net3/', function(req, res, next) {
-  res.render('net3');
+router.get('/experiment/net3/user/:userId', function(req, res, next) {
+  console.log("***net3 req params " , req.params.userId);
+  res.render('net3', { studentId: req.params.userId });
 });
 
-router.get('/experiment/net4/', function(req, res, next) {
-  res.render('net4');
+router.get('/experiment/net4/user/:userId', function(req, res, next) {
+  console.log("***net4 req params " , req.params.userId);
+  res.render('net4', { studentId: req.params.userId });
 });
 
-router.get('/experiment/net5/', function(req, res, next) {
-  res.render('net5');
+router.get('/experiment/net5/user/:userId', function(req, res, next) {
+  console.log("***net5 req params " , req.params.userId);
+  res.render('net5', { studentId: req.params.userId });
 });
 
-router.get('/experiment/net6/', function(req, res, next) {
-  res.render('net6');
+router.get('/experiment/net6/user/:userId', function(req, res, next) {
+  console.log("***net6 req params " , req.params.userId);
+  res.render('net6', { studentId: req.params.userId });
 });
 
 router.get('/experiment/thankyou/', function(req, res, next){
@@ -98,206 +111,212 @@ router.get('/experiment/thankyou/', function(req, res, next){
 });
 
 router.post('/experiment/explanation/randfirst', function(req, res, next) {
-  var student_id;
-    ip_v = req.body.ip
-    console.log("user ip net1: " + ip_v);
-    MongoClient.connect(url, function(err, dbb) {
+  var student_id = req.body.student_id
+  console.log("***student id explanation: " + student_id);
+  var o_st_id = new ObjectId(student_id);
+  MongoClient.connect(url, function(err, dbb) {
+    if (err) throw err;
+    var dbo = dbb.db("CoalitionFormation");
+    dbo.collection("users").find({studentID: o_st_id}).limit(1).sort({_id:-1}).toArray(function(err, resp) {
       if (err) throw err;
-      var dbo = dbb.db("CoalitionFormation");
-      dbo.collection("users").find({ip: ip_v}).limit(1).sort({_id:-1}).toArray(function(err, resp) {
-        if (err) throw err;
-        student_id = resp[0]["studentID"];
-        var left_networks = resp[0]["left_networks"];
-        console.log("query response left networks:" + resp[0]["left_networks"]);
-        console.log("query response student id:" + resp[0]["studentID"]);
+      console.log("resp", resp);
+      // student_id = resp[0]["studentID"];
+      var left_networks = resp[0]["left_networks"];
+      console.log("query response left networks:" + resp[0]["left_networks"]);
+      console.log("query response student id:" + resp[0]["studentID"]);
+      var random_index = Math.floor(Math.random()*left_networks.length)
+      var random_net = left_networks[random_index];
+      var redirect_to = '/experiment/net' + String(random_net) + "/user/" + String(student_id)
+      console.log("redirect to address:" + redirect_to);
+      left_networks.splice(random_index, 1);
+      console.log("New Left network #1: " + String(left_networks));
+      dbo.collection("users").updateOne(
+        { studentID: o_st_id},
+        {
+          $set: { "left_networks": left_networks}
+        }
+      )
+
+      console.log(req.body)
+      console.log("reach here"); 
+      dbb.close();
+      res.redirect(redirect_to);
+    });
+  });
+});
+
+router.post('/experiment/net1/chosen_nodes/', function(req, res, next) {
+  var student_id = req.body.student_id
+  console.log("***student id net1: " + student_id);
+  var o_st_id = new ObjectId(student_id);
+
+  MongoClient.connect(url, function(err, dbb) {
+    if (err) throw err;
+    var dbo = dbb.db("CoalitionFormation");
+    dbo.collection("users").find({studentID: o_st_id}).limit(1).sort({_id:-1}).toArray(function(err, resp) {
+      if (err) throw err;
+      // student_id = resp[0]["studentID"];
+      // console.log("query response student id #1:" + String(student_id));
+
+      var net1_instance = new Net1Model({ studentID: student_id, 
+        time_sec:req.body.time,
+        weight:req.body.weight,
+        node_1:req.body.node1, 
+        node_2:req.body.node2,
+        node_3:req.body.node3,
+        node_4:req.body.node4, 
+        node_5:req.body.node5,
+        node_6:req.body.node6,
+        nodes_order:req.body.orderednodes});
+      net1_instance.save(function (err) {if (err) return handleError(err);});
+      console.log(req.body)
+
+      var left_networks = resp[0]["left_networks"];
+      console.log("query response left networks #1: " + String(left_networks));
+      if (left_networks === undefined || left_networks.length == 0) {
+        redirect_to = '/experiment/thankyou'
+      } else {
         var random_index = Math.floor(Math.random()*left_networks.length)
         var random_net = left_networks[random_index];
-        var redirect_to = '/experiment/net' + String(random_net)
-        console.log("redirect to address:" + redirect_to);
+        var redirect_to = '/experiment/net' + String(random_net) + "/user/" + String(student_id)
         left_networks.splice(random_index, 1);
         console.log("New Left network #1: " + String(left_networks));
         dbo.collection("users").updateOne(
-          { studentID: student_id},
+          { studentID: o_st_id},
           {
             $set: { "left_networks": left_networks}
           }
         )
-
-        console.log(req.body)
-        console.log("reach here"); 
-        dbb.close();
-        res.redirect(redirect_to);
-      });
+      }
+      console.log("redirect to address #1:" + redirect_to);
+      
+      console.log("reach here1"); 
+      dbb.close();
+      res.redirect(redirect_to);
     });
-});
-
-router.post('/experiment/net1/chosen_nodes/', function(req, res, next) {
-    var student_id;
-    ip_v = req.body.ip
-    console.log("user ip net1: " + ip_v);
-    MongoClient.connect(url, function(err, dbb) {
-      if (err) throw err;
-      var dbo = dbb.db("CoalitionFormation");
-      dbo.collection("users").find({ip: ip_v}).limit(1).sort({_id:-1}).toArray(function(err, resp) {
-        if (err) throw err;
-        student_id = resp[0]["studentID"];
-        console.log("query response student id #1:" + String(student_id));
-
-        var net1_instance = new Net1Model({ studentID: student_id, 
-          time_sec:req.body.time,
-          weight:req.body.weight,
-          node_1:req.body.node1, 
-          node_2:req.body.node2,
-          node_3:req.body.node3,
-          node_4:req.body.node4, 
-          node_5:req.body.node5,
-          node_6:req.body.node6,
-          nodes_order:req.body.orderednodes});
-        net1_instance.save(function (err) {if (err) return handleError(err);});
-        console.log(req.body)
-
-        var left_networks = resp[0]["left_networks"];
-        console.log("query response left networks #1: " + String(left_networks));
-        if (left_networks === undefined || left_networks.length == 0) {
-          redirect_to = '/experiment/thankyou'
-        } else {
-          var random_index = Math.floor(Math.random()*left_networks.length)
-          var random_net = left_networks[random_index];
-          var redirect_to = '/experiment/net' + String(random_net)
-          left_networks.splice(random_index, 1);
-          console.log("New Left network #1: " + String(left_networks));
-          dbo.collection("users").updateOne(
-            { studentID: student_id},
-            {
-              $set: { "left_networks": left_networks}
-            }
-          )
-        }
-        console.log("redirect to address #1:" + redirect_to);
-        
-        console.log("reach here1"); 
-        dbb.close();
-        res.redirect(redirect_to);
-      });
-    });
+  });
    
 });
 router.post('/experiment/net2/chosen_nodes/', function(req, res, next) {
-    var student_id;
-    ip_v = req.body.ip
-    console.log("user ip net2: " + ip_v);
-    MongoClient.connect(url, function(err, dbb) {
+  var student_id = req.body.student_id
+  console.log("***student id net2: " + student_id);
+  var o_st_id = new ObjectId(student_id);
+
+  MongoClient.connect(url, function(err, dbb) {
+    if (err) throw err;
+    var dbo = dbb.db("CoalitionFormation");
+    dbo.collection("users").find({studentID: o_st_id}).limit(1).sort({_id:-1}).toArray(function(err, resp) {
       if (err) throw err;
-      var dbo = dbb.db("CoalitionFormation");
-      dbo.collection("users").find({ip: ip_v}).limit(1).sort({_id:-1}).toArray(function(err, resp) {
-        if (err) throw err;
-        student_id = resp[0]["studentID"];
-        console.log("query response student id #2:" + String(student_id));
+      //student_id = resp[0]["studentID"];
+      //console.log("query response student id #2:" + String(student_id));
 
-        var net2_instance = new Net2Model({ studentID: student_id, 
-          time_sec:req.body.time,
-          weight:req.body.weight,
-          node_1:req.body.node1, 
-          node_2:req.body.node2,
-          node_3:req.body.node3,
-          node_4:req.body.node4,
-          node_5:req.body.node5,
-          node_6:req.body.node6,
-          nodes_order:req.body.orderednodes});
-        net2_instance.save(function (err) {if (err) return handleError(err);});
-        console.log(req.body)
+      var net2_instance = new Net2Model({ studentID: student_id, 
+        time_sec:req.body.time,
+        weight:req.body.weight,
+        node_1:req.body.node1, 
+        node_2:req.body.node2,
+        node_3:req.body.node3,
+        node_4:req.body.node4,
+        node_5:req.body.node5,
+        node_6:req.body.node6,
+        nodes_order:req.body.orderednodes});
+      net2_instance.save(function (err) {if (err) return handleError(err);});
+      console.log(req.body)
 
-        var left_networks = resp[0]["left_networks"];
-        console.log("query response left networks #2: " + String(left_networks));
-        if (left_networks === undefined || left_networks.length == 0) {
-          redirect_to = '/experiment/thankyou'
-        } else {
-          var random_index = Math.floor(Math.random()*left_networks.length)
-          var random_net = left_networks[random_index];
-          var redirect_to = '/experiment/net' + String(random_net)
-          left_networks.splice(random_index, 1);
-          console.log("New Left network #2: " + String(left_networks));
-          dbo.collection("users").updateOne(
-            { studentID: student_id},
-            {
-              $set: { "left_networks": left_networks}
-            }
-          )
-        }
-        console.log("redirect to address #2:" + redirect_to);
-        
-        console.log("reach here2"); 
-        dbb.close();
-        res.redirect(redirect_to);
-      });
+      var left_networks = resp[0]["left_networks"];
+      console.log("query response left networks #2: " + String(left_networks));
+      if (left_networks === undefined || left_networks.length == 0) {
+        redirect_to = '/experiment/thankyou'
+      } else {
+        var random_index = Math.floor(Math.random()*left_networks.length)
+        var random_net = left_networks[random_index];
+        var redirect_to = '/experiment/net' + String(random_net) + "/user/" + String(student_id)
+        left_networks.splice(random_index, 1);
+        console.log("New Left network #2: " + String(left_networks));
+        dbo.collection("users").updateOne(
+          { studentID: o_st_id},
+          {
+            $set: { "left_networks": left_networks}
+          }
+        )
+      }
+      console.log("redirect to address #2:" + redirect_to);
+      
+      console.log("reach here2"); 
+      dbb.close();
+      res.redirect(redirect_to);
     });
+  });
 
 
 });
 router.post('/experiment/net3/chosen_nodes/', function(req, res, next) {
-    var student_id;
-    ip_v = req.body.ip
-    console.log("user ip net3: " + ip_v);
-    MongoClient.connect(url, function(err, dbb) {
-      if (err) throw err;
-      var dbo = dbb.db("CoalitionFormation");
-      dbo.collection("users").find({ip: ip_v}).limit(1).sort({_id:-1}).toArray(function(err, resp) {
-        if (err) throw err;
-        student_id = resp[0]["studentID"];
-        console.log("query response student id #3:" + String(student_id));
+  var student_id = req.body.student_id
+  console.log("***student id net3: " + student_id);
+  var o_st_id = new ObjectId(student_id);
 
-        var net3_instance = new Net3Model({ studentID: student_id, 
-          time_sec:req.body.time,
-          weight:req.body.weight,
-          node_1:req.body.node1, 
-          node_2:req.body.node2,
-          node_3:req.body.node3,
-          node_4:req.body.node4,
-          node_5:req.body.node5,
-          node_6:req.body.node6,
-          node_7:req.body.node7,
-          node_8:req.body.node8,
-          nodes_order:req.body.orderednodes});
-        net3_instance.save(function (err) {if (err) return handleError(err);});
-        console.log(req.body);
-
-        var left_networks = resp[0]["left_networks"];
-        console.log("query response left networks #3: " + String(left_networks));
-        if (left_networks === undefined || left_networks.length == 0) {
-          redirect_to = '/experiment/thankyou'
-        } else {
-          var random_index = Math.floor(Math.random()*left_networks.length)
-          var random_net = left_networks[random_index];
-          var redirect_to = '/experiment/net' + String(random_net)
-          left_networks.splice(random_index, 1);
-          console.log("New Left network #3: " + String(left_networks));
-          dbo.collection("users").updateOne(
-            { studentID: student_id},
-            {
-              $set: { "left_networks": left_networks}
-            }
-          )
-        }
-        console.log("redirect to address #3:" + redirect_to);
-        
-        console.log("reach here3"); 
-        dbb.close();
-        res.redirect(redirect_to);
-      });
-    });
-});
-
-router.post('/experiment/net4/chosen_nodes/', function(req, res, next) {
-  var student_id;
-  ip_v = req.body.ip
-  console.log("user ip net4: " + ip_v);
+  
   MongoClient.connect(url, function(err, dbb) {
     if (err) throw err;
     var dbo = dbb.db("CoalitionFormation");
-    dbo.collection("users").find({ip: ip_v}).limit(1).sort({_id:-1}).toArray(function(err, resp) {
+    dbo.collection("users").find({studentID: o_st_id}).limit(1).sort({_id:-1}).toArray(function(err, resp) {
       if (err) throw err;
-      student_id = resp[0]["studentID"];
-      console.log("query response student id #4:" + String(student_id));
+      //student_id = resp[0]["studentID"];
+      //console.log("query response student id #3:" + String(student_id));
+
+      var net3_instance = new Net3Model({ studentID: student_id, 
+        time_sec:req.body.time,
+        weight:req.body.weight,
+        node_1:req.body.node1, 
+        node_2:req.body.node2,
+        node_3:req.body.node3,
+        node_4:req.body.node4,
+        node_5:req.body.node5,
+        node_6:req.body.node6,
+        node_7:req.body.node7,
+        node_8:req.body.node8,
+        nodes_order:req.body.orderednodes});
+      net3_instance.save(function (err) {if (err) return handleError(err);});
+      console.log(req.body);
+
+      var left_networks = resp[0]["left_networks"];
+      console.log("query response left networks #3: " + String(left_networks));
+      if (left_networks === undefined || left_networks.length == 0) {
+        redirect_to = '/experiment/thankyou'
+      } else {
+        var random_index = Math.floor(Math.random()*left_networks.length)
+        var random_net = left_networks[random_index];
+        var redirect_to = '/experiment/net' + String(random_net) + "/user/" + String(student_id)
+        left_networks.splice(random_index, 1);
+        console.log("New Left network #3: " + String(left_networks));
+        dbo.collection("users").updateOne(
+          { studentID: o_st_id},
+          {
+            $set: { "left_networks": left_networks}
+          }
+        )
+      }
+      console.log("redirect to address #3:" + redirect_to);
+      
+      console.log("reach here3"); 
+      dbb.close();
+      res.redirect(redirect_to);
+    });
+  });
+});
+
+router.post('/experiment/net4/chosen_nodes/', function(req, res, next) {
+  var student_id = req.body.student_id
+  console.log("***student id net4: " + student_id);
+  var o_st_id = new ObjectId(student_id);
+
+  MongoClient.connect(url, function(err, dbb) {
+    if (err) throw err;
+    var dbo = dbb.db("CoalitionFormation");
+    dbo.collection("users").find({studentID: o_st_id}).limit(1).sort({_id:-1}).toArray(function(err, resp) {
+      if (err) throw err;
+      //student_id = resp[0]["studentID"];
+      //console.log("query response student id #4:" + String(student_id));
 
       var net4_instance = new Net4Model({ studentID: student_id, 
         time_sec:req.body.time,
@@ -324,11 +343,11 @@ router.post('/experiment/net4/chosen_nodes/', function(req, res, next) {
         } else {
           var random_index = Math.floor(Math.random()*left_networks.length)
           var random_net = left_networks[random_index];
-          var redirect_to = '/experiment/net' + String(random_net)
+          var redirect_to = '/experiment/net' + String(random_net) + "/user/" + String(student_id)
           left_networks.splice(random_index, 1);
           console.log("New Left network #4: " + String(left_networks));
           dbo.collection("users").updateOne(
-            { studentID: student_id},
+            { studentID: o_st_id},
             {
               $set: { "left_networks": left_networks}
             }
@@ -344,16 +363,17 @@ router.post('/experiment/net4/chosen_nodes/', function(req, res, next) {
 });
 
 router.post('/experiment/net5/chosen_nodes/', function(req, res, next) {
-  var student_id;
-  ip_v = req.body.ip
-  console.log("user ip net5: " + ip_v);
+  var student_id = req.body.student_id
+  console.log("***student id net5: " + student_id);
+  var o_st_id = new ObjectId(student_id);
+
   MongoClient.connect(url, function(err, dbb) {
     if (err) throw err;
     var dbo = dbb.db("CoalitionFormation");
-    dbo.collection("users").find({ip: ip_v}).limit(1).sort({_id:-1}).toArray(function(err, resp) {
+    dbo.collection("users").find({studentID: o_st_id}).limit(1).sort({_id:-1}).toArray(function(err, resp) {
       if (err) throw err;
-      student_id = resp[0]["studentID"];
-      console.log("query response student id #5:" + String(student_id));
+      //student_id = resp[0]["studentID"];
+      //console.log("query response student id #5:" + String(student_id));
 
       var net5_instance = new Net5Model({ studentID: student_id, 
         time_sec:req.body.time,
@@ -379,11 +399,11 @@ router.post('/experiment/net5/chosen_nodes/', function(req, res, next) {
         } else {
           var random_index = Math.floor(Math.random()*left_networks.length)
           var random_net = left_networks[random_index];
-          var redirect_to = '/experiment/net' + String(random_net)
+          var redirect_to = '/experiment/net' + String(random_net) + "/user/" + String(student_id)
           left_networks.splice(random_index, 1);
           console.log("New Left network #5: " + String(left_networks));
           dbo.collection("users").updateOne(
-            { studentID: student_id},
+            { studentID: o_st_id},
             {
               $set: { "left_networks": left_networks}
             }
@@ -399,16 +419,17 @@ router.post('/experiment/net5/chosen_nodes/', function(req, res, next) {
 });
 
 router.post('/experiment/net6/chosen_nodes/', function(req, res, next) {
-  var student_id;
-  ip_v = req.body.ip
-  console.log("user ip net6: " + ip_v);
+  var student_id = req.body.student_id
+  console.log("***student id net6: " + student_id);
+  var o_st_id = new ObjectId(student_id);
+
   MongoClient.connect(url, function(err, dbb) {
     if (err) throw err;
     var dbo = dbb.db("CoalitionFormation");
-    dbo.collection("users").find({ip: ip_v}).limit(1).sort({_id:-1}).toArray(function(err, resp) {
+    dbo.collection("users").find({studentID: o_st_id}).limit(1).sort({_id:-1}).toArray(function(err, resp) {
       if (err) throw err;
-      student_id = resp[0]["studentID"];
-      console.log("query response student id #6:" + String(student_id));
+      //student_id = resp[0]["studentID"];
+      //console.log("query response student id #6:" + String(student_id));
 
       var net6_instance = new Net6Model({ studentID: student_id, 
         time_sec:req.body.time,
@@ -437,11 +458,11 @@ router.post('/experiment/net6/chosen_nodes/', function(req, res, next) {
         } else {
           var random_index = Math.floor(Math.random()*left_networks.length)
           var random_net = left_networks[random_index];
-          var redirect_to = '/experiment/net' + String(random_net)
+          var redirect_to = '/experiment/net' + String(random_net) + "/user/" + String(student_id)
           left_networks.splice(random_index, 1);
           console.log("New Left network #6: " + String(left_networks));
           dbo.collection("users").updateOne(
-            { studentID: student_id},
+            { studentID: o_st_id},
             {
               $set: { "left_networks": left_networks}
             }

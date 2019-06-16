@@ -39,13 +39,13 @@ html(lang='en')
     p(dir="rtl") בהצלחה!
     
     form(method="post" action="/experiment/explanation/randfirst")
-      input(type="hidden" id="ip" name="ip")
+      input(type="hidden" id="student_id" name="student_id" value=studentId)
       input(type="submit" class="button" id="nextButton" value="Next")
     
-    script.
-      function getIP(json) {
-        document.getElementById("ip").value = json.ip}
-    script(type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP")   
+    // script.
+    //   function getIP(json) {
+    //     document.getElementById("ip").value = json.ip}
+    // script(type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP")   
     
     
     // button(class="button" onclick="window.location.href='/experiment/net1'") Next
