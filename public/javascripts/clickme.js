@@ -77,7 +77,14 @@ function myFunction() {
       document.getElementById('node11').value = chosenNodes[10];
       document.getElementById('node12').value = chosenNodes[11];
       document.getElementById('node13').value = chosenNodes[12];
-  }
+    } else if (netNum === 7 || netNum === 8 || netNum === 10) {
+      document.getElementById('node1').value = chosenNodes[0];
+      document.getElementById('node2').value = chosenNodes[1];
+      document.getElementById('node3').value = chosenNodes[2];
+    } else if (netNum === 9) {
+      document.getElementById('node1').value = chosenNodes[0];
+      document.getElementById('node2').value = chosenNodes[1];
+    }
 
 }
 

@@ -7,7 +7,7 @@ var Schema = mongoose.Schema;
 var UsersModel = new Schema({
   ip                : {type: String, required: true},
   studentID         : {type: Schema.Types.ObjectId, ref: 'Students'},
-  left_networks     : {type: Array, default: [1,2,3,4,5,6]},
+  left_networks     : {type: Array, default: [1,2,3,4,5,6,7,8,9,10]},
   date              : {type: Date, default: Date.now}
   });
 

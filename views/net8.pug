@@ -1,0 +1,31 @@
+doctype html
+html(lang='en')
+  head
+    title= "Network 8"
+    meta(charset='utf-8')
+    script(src="/javascripts/vis.js")
+    script(src="/javascripts/clickme.js")
+    script(src="/javascripts/n20g1-prop.js")
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/vis.css')
+  body
+    p(dir="rtl" id="nodesToChose" class="nodesToChose")
+    p(dir="rtl") כדי לבחור קודקוד עלייך ללחוץ עליו לחיצה ארוכה, עד שיסומן בצבע אדום. המשך בפעולה זו עד שתסיים לבחור את כמות הקודקודים הנדרשת במשימה. שים לב שלחיצה קצרה תבטל את כל הקודקודים שנבחרו.
+    p(dir="rtl") כדי לבטל בחירה של קודקוד, עליך ללחוץ עליו שוב לחיצה ארוכה עד שצבעו הופך לכחול שוב.
+    p(dir="rtl" id="remainNodes" class="remainNodes")
+    div(id="mynetwork")
+    form(method="post" action="/experiment/net8/chosen_nodes")
+        input(type="hidden" id="student_id" name="student_id" value=studentId)
+        input(type="hidden" id="time" name="time")
+        input(type="hidden" id="weight" name="weight")
+        input(type="hidden" id="node1" name="node1")
+        input(type="hidden" id="node2" name="node2")
+        input(type="hidden" id="node3" name="node3")
+        input(type="hidden" id="orderednodes" name="orderednodes")
+        input(type="submit" class="button" id="nextButton" value="Next")
+    pre(dir="rtl", id="eventSpan")
+    p(dir="rtl", id="weightOfSelecteEdges")
+    //script.
+    //  function getIP(json) {
+    //    document.getElementById("ip").value = json.ip}
+    //script(type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP")
