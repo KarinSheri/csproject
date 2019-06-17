@@ -10,7 +10,8 @@ var StudentModel = new Schema({
   email             : {type: String, required: true},
   education         : {type: String, enum: ["Less than high school","High school","Bachelor","Master","Doctorate"], required: true},
   industry          : {type: String, required: true},
-  date              : {type: Date, default: Date.now}
+  date              : {type: Date, default: Date.now},
+  left_networks     : {type: Array, default: [1,2,3,4,5,6,7,8,9,10]},
   });
 
 //Export function to create "SomeModel" model class

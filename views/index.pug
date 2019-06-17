@@ -9,7 +9,6 @@ html(lang='en')
     h1 Please enter your information:
     div
         form(method="post" action="/addname")
-            input(type="hidden" id="ip" name="ip")
             ul(class="form-style-1")
                 li
                 label Age:
@@ -37,7 +36,4 @@ html(lang='en')
                 input(type="text" name="industry" placeholder="Describe the industry you primarily work in..." required)
                 li
                 input(type="submit" value="Next")
-    script.
-      function getIP(json) {
-        document.getElementById("ip").value = json.ip}
-    script(type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP")
+
