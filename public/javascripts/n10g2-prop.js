@@ -19,7 +19,7 @@ var numNodesToChoose=3
   {id: 9, label: '9', color: 'red'}
 ]);*/
 
-var nodes = new vis.DataSet([
+/*var nodes = new vis.DataSet([
   {id: 0, label: '0'},
   {id: 1, label: '1'},
   {id: 2, label: '2'},
@@ -29,6 +29,18 @@ var nodes = new vis.DataSet([
   {id: 6, label: '6'},
   {id: 7, label: '7'},
   {id: 9, label: '9'}
+]);*/
+
+var nodes = new vis.DataSet([
+  {id: 0},
+  {id: 1},
+  {id: 2},
+  {id: 3},
+  {id: 4},
+  {id: 5},
+  {id: 6},
+  {id: 7},
+  {id: 9}
 ]);
 
 // create an array with edges
