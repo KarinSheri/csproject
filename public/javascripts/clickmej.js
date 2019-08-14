@@ -2,13 +2,13 @@ window.onload = function() {
 var start = new Date();
 const nodesToChoose = document.getElementById('nodesToChose')
 var strNodes = numNodesToChoose.toString();
-var textToPresent = "אנא בחר מהרשת הנתונה <b>" + strNodes + "</b> קודקודים להסרה בכדי להרוס אותה ככל האפשר."
+var textToPresent = "<b>" +strNodes + "</b>個の頂点からなるネットワークにできるだけ損害を与えるように頂点を選択してください．頂点を選択"
 nodesToChoose.innerHTML = textToPresent
 
 const remainNodesPar = document.getElementById('remainNodes')
 var numReaminNodes = numNodesToChoose
 var strRemainNodes = numReaminNodes.toString();
-var txtRemainedNodes = "מספר הקודקודים שנשאר לבחור: <b>" + strRemainNodes + "</b>"
+var txtRemainedNodes = "<b>" + strRemainNodes + "</b> ：選択可能な頂点数" 
 remainNodesPar.innerHTML = txtRemainedNodes
 
 var chosenNodes;
@@ -193,20 +193,20 @@ network.on("selectNode", function (params) {
   var strRemainNodes = numReaminNodes.toString();
   if (numReaminNodes === 0) {
     // can select a next button
-    var txtRemainedNodes = "<b>מעולה! סימנת מספיק קודקודים. אם אתה חושב שזו הבחירה הטובה ביותר אתה יכול להתקדם למשימה הבאה.</b>"
+    var txtRemainedNodes = "<b>十分な数の頂点が選択されています．最適に頂点を選択していると思う場合は，次の問題に進んでください</b>"
     remainNodesPar.innerHTML = txtRemainedNodes
     nextButton.disabled = false;
   }
   else if (numReaminNodes < 0) {
     var numDeselectNodes = -numReaminNodes
     var strDeselectNodes = numDeselectNodes.toString();
-    var txtRemainedNodes = "נדרשת לבחור " + strNodes + " קודקודים בלבד. אנא הסר מבחירתך <b>" + strDeselectNodes + "</b> קודקודים."
+    var txtRemainedNodes = "このネットワークでは，" + strNodes +"個の頂点のみ選択することができます. <b>" +strDeselectNodes+"</b>個の頂点の選択を解除してください．"
 
     remainNodesPar.innerHTML = txtRemainedNodes
     nextButton.disabled = true;
   }
   else {
-    var txtRemainedNodes = "מספר הקודקודים שנשאר לבחור: <b>" + strRemainNodes + "</b>"
+    var txtRemainedNodes = "<b>" + strRemainNodes + "</b> ：選択可能な頂点数" 
     remainNodesPar.innerHTML = txtRemainedNodes
     nextButton.disabled = true;
   }
@@ -223,7 +223,7 @@ network.on("selectNode", function (params) {
           sumOfEdges = sumOfEdges + 1
       }
   }
-  document.getElementById('weightOfSelecteEdges').innerHTML = '<h2> סך המשקל של הקשתות שהורדו הוא: ' + sumOfEdges.toString() + '</h2>';
+  document.getElementById('weightOfSelecteEdges').innerHTML  = '<h2>' + sumOfEdges.toString() + "：除去された枝の重みの合計 " + '</h2>';
 });
 
 network.on("deselectNode", function (params) {
@@ -247,7 +247,7 @@ network.on("deselectNode", function (params) {
   numUnselected = params.previousSelection.nodes.length - params.nodes.length
   numReaminNodes = numReaminNodes + numUnselected
   var strRemainNodes = numReaminNodes.toString();
-  var txtRemainedNodes = "מספר הקודקודים שנשאר לבחור: <b>" + strRemainNodes + "</b>"
+  var txtRemainedNodes = "<b>" + strRemainNodes + "</b> ：選択可能な頂点数" 
   remainNodesPar.innerHTML = txtRemainedNodes
   
   // bug: unselecting a node Leads to unselecting edges that should be selected
@@ -263,20 +263,20 @@ network.on("deselectNode", function (params) {
   
   if (numReaminNodes === 0) {
     // can select a next button
-    var txtRemainedNodes = "<b>מעולה! סימנת מספיק קודקודים. אם אתה חושב שזו הבחירה הטובה ביותר אתה יכול להתקדם למשימה הבאה.</b>"
+    var txtRemainedNodes = "<b>十分な数の頂点が選択されています．最適に頂点を選択していると思う場合は，次の問題に進んでください</b>"
     remainNodesPar.innerHTML = txtRemainedNodes
     nextButton.disabled = false;
   }
   else if (numReaminNodes < 0) {
     var numDeselectNodes = -numReaminNodes
     var strDeselectNodes = numDeselectNodes.toString();
-    var txtRemainedNodes = "נדרשת לבחור " + strNodes + " קודקודים בלבד. אנא הסר מבחירתך <b>" + strDeselectNodes + "</b> קודקודים."
+    var txtRemainedNodes = "このネットワークでは，" + strNodes +"個の頂点のみ選択することができます. <b>" +strDeselectNodes+"</b>個の頂点の選択を解除してください．"
 
     remainNodesPar.innerHTML = txtRemainedNodes
     nextButton.disabled = true;
   }
   else {
-    var txtRemainedNodes = "מספר הקודקודים שנשאר לבחור: <b>" + strRemainNodes + "</b>"
+    var txtRemainedNodes = "<b>" + strRemainNodes + "</b> ：選択可能な頂点数" 
     remainNodesPar.innerHTML = txtRemainedNodes
     nextButton.disabled = true;
   }
@@ -293,7 +293,7 @@ network.on("deselectNode", function (params) {
           sumOfEdges = sumOfEdges + 1
       }
   }
-  document.getElementById('weightOfSelecteEdges').innerHTML = '<h2> סך המשקל של הקשתות שהורדו הוא: ' + sumOfEdges.toString() + '</h2>';
+  document.getElementById('weightOfSelecteEdges').innerHTML = '<h2>' + sumOfEdges.toString() + "：除去された枝の重みの合計 " + '</h2>';
   
   console.log('Client-side code running');
   

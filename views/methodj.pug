@@ -1,0 +1,14 @@
+doctype html
+html(lang='en')
+  head
+    title= "CS Experiment"
+    meta(charset='utf-8')
+    link(rel='stylesheet', href='/stylesheets/method.css')
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.js")
+  body
+    p どのような考えに基づいて頂点を選択したかを説明してください．
+    div(class="container")
+      form(method="post" action="/experimentj/method/add_method")
+        input(type="hidden" id="student_id" name="student_id" value=studentId)
+        textarea(type="text" placeholder="..." required id="method" name="method" style="height:200px")
+        input(type="submit" class="button" id="nextButton" value="Next")

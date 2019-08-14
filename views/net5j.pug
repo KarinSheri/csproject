@@ -1,0 +1,38 @@
+doctype html
+html(lang='en')
+  head
+    title= "Network 5"
+    meta(charset='utf-8')
+    script(src="/javascripts/vis.js")
+    script(src="/javascripts/clickmej.js")
+    script(src="/javascripts/net5-prop.js")
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/vis.css')
+  body
+    p(id="nodesToChose" class="nodesToChose")
+    p 頂点を選択するためには，その頂点が赤色になるまで，頂点を押し続けます．必要なすべての頂点を選択するまで，頂点を選択し続けてください．短くクリックをすると選択したすべての頂点がキャンセルされてしまいます．
+    p 選択した頂点を解除するためには，頂点が青色に代わるまで，頂点を再び押し続けます．
+    p(id="remainNodes" class="remainNodes")
+    div(id="mynetwork")
+    form(method="post" action="/experimentj/net5/chosen_nodes")
+        input(type="hidden" id="student_id" name="student_id" value=studentId)
+        input(type="hidden" id="time" name="time")
+        input(type="hidden" id="weight" name="weight")
+        input(type="hidden" id="node1" name="node1")
+        input(type="hidden" id="node2" name="node2")
+        input(type="hidden" id="node3" name="node3")
+        input(type="hidden" id="node4" name="node4")
+        input(type="hidden" id="node5" name="node5")
+        input(type="hidden" id="node6" name="node6")
+        input(type="hidden" id="node7" name="node7")
+        input(type="hidden" id="node8" name="node8")
+        input(type="hidden" id="node9" name="node9")
+        input(type="hidden" id="node10" name="node10")
+        input(type="hidden" id="orderednodes" name="orderednodes")
+        input(type="submit" class="button" id="nextButton" value="Next")
+    pre(id="eventSpan")
+    p(id="weightOfSelecteEdges") 
+    //script.
+    //  function getIP(json) {
+    //    document.getElementById("ip").value = json.ip}
+    //script(type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP")

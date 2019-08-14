@@ -1,0 +1,39 @@
+doctype html
+html(lang='en')
+  head
+    title= "CS Experiment"
+    meta(charset='utf-8')
+    link(rel='stylesheet', href='/stylesheets/form.css')
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.js")
+  body
+    h1 Please enter your information:
+    div
+        form(method="post" action="/addnamej")
+            ul(class="form-style-1")
+                li
+                label Age:
+                input(type="number" name="age" placeholder="Enter your age..." required)
+                li
+                label Gender:
+                select(class='gender' name='gender')
+                    outgroup(label="Gender")
+                        option(name= "Male" value="Male") Male
+                        option(name= "Female" value="Female") Female
+                li
+                label Email:
+                input(type="email" name="email" required)
+                li
+                label Education:
+                select(class='education' name='education')
+                    outgroup(label="Education")
+                        option(name= "education" value="Less than high school") Less than high school degree
+                        option(name= "education" value="High school") High school graduate
+                        option(name= "education" value="Bachelor") Bachelor's degree (e.g BA, BS)
+                        option(name= "education" value="Master") Master's degree (e.g MA, MS, MEd)   
+                        option(name= "education" value="Doctorate") Doctorate degree (e.g PhD, EdD)
+                li        
+                label Industry:
+                input(type="text" name="industry" placeholder="Describe the industry you primarily work in..." required)
+                li
+                input(type="submit" value="Next")
+

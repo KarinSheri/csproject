@@ -1,0 +1,58 @@
+doctype html
+html(lang='en')
+  head
+    title= "Tutorial"
+    meta(charset='utf-8')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    p 以下の実験では，様々なネットワークを提示されます．それぞれのネットワークに対して，ネットワークに損害を与えることを目標としてください．ネットワークに損害を与えるために，ネットワークの頂点を除去することができます．頂点を除去することで，その頂点につながっている枝が除去され，ネットワークに損害を与えます．
+
+    p 各問題では，一定数の頂点を除去するように求められます．ネットワークに最大の損害を与えると思う頂点を選択してください．
+    
+    p 　一部のネットワークは枝に重みを持っています（重み付き無向グラフ）．この場合は，頂点を除去して，ネットワーク内の枝の重みをできるだけ減らすことが目標です．
+    
+    p 枝の重みが表示されていない場合は，そのネットワーク内のすべての枝が同じ重みを持っていることを指します．この場合は，できるだけ多くの枝を除去することが目標です．
+
+    p 　実験中，前のページに戻ることはできません．
+
+    h2(style="color:SeaGreen") １．	頂点を選択する．
+    p 頂点を選択するためには，頂点が赤色になるまで押し続けてください．
+    
+    video(width="1000", height="auto", controls)
+        source(src='/video/selection.mp4', type='video/mp4')
+        
+    h2(style="color:SeaGreen") ２．	頂点の選択を解除する．
+    p 頂点の選択を解除するためには，頂点が青色になるまでもう一度押し続けてください．
+    
+    video(width="1000", height="auto", controls)
+        source(src='/video/removal.mp4', type='video/mp4')
+        
+    h2(style="color:SeaGreen") ３．	選択したすべての頂点をキャンセルする．
+    p 選択したすべての頂点をキャンセルするためには，短くクリックしてください．これまでに選択したすべての頂点が解除されます．
+    
+    video(width="1000", height="auto", controls)
+        source(src='/video/click.mp4', type='video/mp4')
+    
+    p 　必要な頂点数を選択したら，’Next’を押してください．
+    
+    p 　あといくつの頂点を選択できるかがディスプレイに表示されます．また，ページの下部に，ネットワークにどの程度損害を与えているかが表示されます．値が大きいほど大きな損害を与えていることを示します．
+    
+    
+
+    
+    // p(dir="rtl") בהצלחה!
+    
+    form(method="post" action="/experimentj/explanation/randfirst")
+      input(type="hidden" id="student_id" name="student_id" value=studentId)
+      input(type="submit" class="button" id="nextButton" value="Next")
+    
+    // script.
+    //   function getIP(json) {
+    //     document.getElementById("ip").value = json.ip}
+    // script(type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP")   
+    
+    
+    // button(class="button" onclick="window.location.href='/experiment/net1'") Next
+
+    
+

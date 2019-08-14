@@ -1,0 +1,21 @@
+doctype html
+html(lang='en')
+  head
+    title= "CS Experiment"
+    meta(charset='utf-8')
+    link(rel='stylesheet', href='/stylesheets/form.css')
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.js")
+  body
+    h1 Please select your language:
+    div
+        form(method="post" action="/index")
+            ul(class="form-style-1")
+                li
+                input(type="submit" value="Hebrew")
+        div
+        form(method="post" action="/indexj")
+            ul(class="form-style-1")
+                li
+                input(type="submit" value="Japanese")
+
+
