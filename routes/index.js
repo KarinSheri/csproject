@@ -37,6 +37,18 @@ router.get('/', function(req, res, next) {
 });
 
 /* GET home page. */
+router.get('/index', function(req, res, next) {
+  console.log("Hebrew");
+  res.render('index', { title: 'Express' });
+});
+
+/* GET home page. */
+router.get('/indexj', function(req, res, next) {
+  console.log("Japanese");
+  res.render('indexj', { title: 'Express' });
+});
+
+/* GET home page. */
 router.post('/index', function(req, res, next) {
   console.log("Hebrew");
   res.render('index', { title: 'Express' });
