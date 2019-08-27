@@ -2,7 +2,8 @@ window.onload = function() {
 var start = new Date();
 const nodesToChoose = document.getElementById('nodesToChose')
 var strNodes = numNodesToChoose.toString();
-var textToPresent = "<b>" +strNodes + "</b>個の頂点からなるネットワークにできるだけ損害を与えるように頂点を選択してください．頂点を選択"
+var textToPresent = "下図のネットワークに，できるだけ損害を与えるように，<b>" + strNodes +"</b> 個の頂点を選択してください．"
+//var textToPresent = "<b>" + strNodes + "</b>個の頂点からなるネットワークにできるだけ損害を与えるように頂点を選択してください．頂点を選択"
 nodesToChoose.innerHTML = textToPresent
 
 const remainNodesPar = document.getElementById('remainNodes')
